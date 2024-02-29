@@ -23,19 +23,18 @@ sequenceDiagram
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser:[{ "content": "I want to become a fullstack dev", "date": "2024-2-29" }, ... ]
+    server-->>browser:[{ "content": "GG easy", "date": "2024-2-28" }, ... ]
     deactivate server
 
     note right of browser: The browser executes the callback function that renders the notes
 
-    user->>browser: Write a new note
+    user->>browser:Write a new note "I want to become a fullstack dev"
     activate browser
     note right of browser:User interacts with the interface to write a \nnew note and submit it to the notes service
     user->>browser:Click on button "Save"
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    browser->>server:POST { "content": "I want to become a fullstack dev", "date": "2024-2-29" } \nhttps://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
     server-->>browser: New note added successfully
     deactivate server
     browser-->>user: Note submitted successfully
     deactivate browser
-
