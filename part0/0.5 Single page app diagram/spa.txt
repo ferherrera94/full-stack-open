@@ -1,0 +1,39 @@
+    participant user
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/index.html
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+
+    note right of browser: The page loads just once and the browser starts executing the JavaScript code
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{ "content": "SPA with SSR rules", "date": "2024-3-1" }, ... ]
+    deactivate server
+
+    note right of browser: The browser executes JavaScript to render the notes
+
+    user->>browser: Interact with SPA UI (writes a new note)
+    activate browser
+    note right of browser: User interacts with the SPA to write a new note
+    user->>browser: Click "Submit"
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: New note added successfully
+    deactivate server
+    browser-->>user: Note submitted successfully
+
+    note right of browser: The SPA updates the UI with the new notes (no page reload)
